@@ -5,7 +5,7 @@ const { program } = require('commander');
 program
     .name('rue')
     .description('CLI to help recall information')
-    .version('0.0.1');
+    .version('1.0.0');
 
 program
     .command('test')
