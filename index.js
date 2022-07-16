@@ -47,4 +47,4 @@ program
 // Set custom commands
 initCommands(program);
 
-program.parse();
+program.parseAsync();
