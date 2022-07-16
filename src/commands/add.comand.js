@@ -1,8 +1,10 @@
+const { writeFileJson } = require('../utils/file.utils');
+
 const COMMAND_NAME = 'add';
 const ARGUMENT_TYPE = '<string>';
 const ARGUMENT_DESCRIPTION = 'A string that maps the nested path of keys using "|" as the delimiter. For Example, "parent|child1|child2" creates { parent: { child1: { child2: <value> } } }';
 
-const action = (input, options) => {
+const action = async (input, options) => {
 	const { value, list: listFlag } = options;
   let rawKeys = input.split('|');
 
@@ -17,8 +19,6 @@ const action = (input, options) => {
 	// Reverse order of keys so that we can build the mapping starting with last key
 	filteredKeys.reverse();
 
-	console.log('options', options);
-
 	const keyMapping = filteredKeys.reduce((map, key, index) => {
 		if (index === 0) {
 			// If list flag is enabled, set value to be an array delimited by ','
@@ -30,7 +30,8 @@ const action = (input, options) => {
 		return map;
 	}, {});
 
-	console.log('keyMapping', JSON.stringify(keyMapping));
+	
+	await writeFileJson(keyMapping);
 }
 
 const requiredOptions = [
