@@ -47,7 +47,6 @@ const options = [
 	}
 ];
 
-
 module.exports = {
 	commandName: COMMAND_NAME,
 	argument: {
