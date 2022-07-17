@@ -17,8 +17,6 @@ const writeFileJson = async (jsonData, pathKeys) => {
 			let currentData = savedData;
 			let incomingData = jsonData;
 
-			console.log('pathKeys', pathKeys);
-
 			for (let i = 0; i < pathKeys.length; i++) {
 				const key = pathKeys[i];
 
