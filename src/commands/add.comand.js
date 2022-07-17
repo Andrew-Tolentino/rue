@@ -17,9 +17,7 @@ const action = async (input, options) => {
 	});
 
 	// Reverse order of keys so that we can build the mapping starting with last key
-	filteredKeys.reverse();
-
-	const keyMapping = filteredKeys.reduce((map, key, index) => {
+	const keyMapping = [...filteredKeys].reverse().reduce((map, key, index) => {
 		if (index === 0) {
 			// If list flag is enabled, set value to be an array delimited by ','
 			map[key] = listFlag ? value.split(',') : value;
@@ -31,7 +29,7 @@ const action = async (input, options) => {
 	}, {});
 
 	
-	await writeFileJson(keyMapping);
+	await writeFileJson(keyMapping, filteredKeys);
 }
 
 const requiredOptions = [
