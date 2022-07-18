@@ -31,12 +31,18 @@ const action = async (input, _options) => {
 		return childData;
 	}, savedData);
 
-	// If result is an Object, return the child keys only
-	if (!Array.isArray(result) && typeof result === 'object') {
+	printResult(result);
+}
+
+const printResult = (result) => {
+	if (Array.isArray(result) || typeof result === 'string') {
+		console.log(result);
+	}
+	else if (typeof result === 'object') {
 		console.log('List of child keys from path', Object.keys(result));
 	}
 	else {
-		console.log(result);
+		console.log(ERROR_UNKNOWN_PATH);
 	}
 }
 
