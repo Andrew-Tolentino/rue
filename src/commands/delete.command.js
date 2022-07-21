@@ -42,6 +42,12 @@ const deletePath = (currentRef, keyPathList, currentIndex) => {
   if (currentRef[key] === undefined)
   	return false;
 
+  // Edge case for deleting top level keys
+  if (keyPathList.length === 1) {
+    delete currentRef[key];
+    return true;
+  }
+
   // Second to last key in the path
   if (currentIndex === keyPathList.length - 2) {
     const nextKey = keyPathList[currentIndex + 1];

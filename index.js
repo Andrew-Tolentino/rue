@@ -42,7 +42,7 @@ const Commands = require('./src/commands/index');
 program
   .name('rue')
   .description('CLI to help recall information')
-  .version('1.0.3');
+  .version('1.0.4');
 
 // Set custom commands
 initCommands(program);
