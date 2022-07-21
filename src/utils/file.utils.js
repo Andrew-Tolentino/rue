@@ -19,9 +19,9 @@ const writeFileJsonWithPathKeys = async (jsonData, pathKeys) => {
       let incomingData = jsonData;
       for (let i = 0; i < pathKeys.length; i++) {
         const key = pathKeys[i];
+
+        // Check if sub path maps to a value rather than another object
         if (currentData[key] !== undefined) {
-          // Check if subMap maps to a value rather than another object
-          
           if (Array.isArray(currentData[key]) || typeof currentData[key] !== 'object') {
             Reflect.set(currentData, key, incomingData[key]);
             break;
@@ -37,6 +37,7 @@ const writeFileJsonWithPathKeys = async (jsonData, pathKeys) => {
         }
       }
     }
+    
     const updatedData = savedData !== null ? savedData : jsonData;
     await fsPromises.writeFile(FILE_NAME, JSON.stringify(updatedData, null, 2));
   }
