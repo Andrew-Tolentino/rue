@@ -3,12 +3,13 @@ const fsPromises = require('fs').promises;
 const FILE_NAME = 'rue_json.json';
 
 /**
- * Method use to write into the rue json file containing saved data
+ * Method use to write into the rue json file containing saved data.
+ * This is usually used when adding new data or changing existing map key values.
  * 
  * @param {Object} jsonData
  * @param {Array<string>} pathKeys
  */
-const writeFileJson = async (jsonData, pathKeys) => {
+const writeFileJsonWithPathKeys = async (jsonData, pathKeys) => {
 	try {
 		const savedData = await readFileJson(); // Check for saved data already, we do not want to override
 
@@ -42,12 +43,27 @@ const writeFileJson = async (jsonData, pathKeys) => {
 		await fsPromises.writeFile(FILE_NAME, JSON.stringify(updatedData, null, 2));
 	}
 	catch(err) {
+		console.log(`Unable to write to Rue file with specified path - ${pathKeys}`, err);
+	}
+}
+
+/**
+ * Method use to update existing jsonData without specifying pathkeys.
+ * This is used primarily to remove keys and just save the json after deletion.
+ * 
+ * @param {Object} jsonData 
+ */
+const writeFileJson = async (jsonData) => {
+	try {
+		await fsPromises.writeFile(FILE_NAME, JSON.stringify(jsonData, null, 2));
+	}
+	catch(err) {
 		console.log('Unable to write to Rue file', err);
 	}
 }
 
 /**
- * Method use to return saved data in the rue file as JSON
+ * Method use to return saved data in the rue file as JSON.
  * 
  * @returns Object
  */
@@ -63,6 +79,7 @@ const readFileJson = async () => {
 }
 
 module.exports = {
+	writeFileJsonWithPathKeys,
 	writeFileJson,
 	readFileJson
 };
