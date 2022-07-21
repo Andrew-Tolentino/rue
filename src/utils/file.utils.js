@@ -14,7 +14,7 @@ const writeFileJsonWithPathKeys = async (jsonData, pathKeys) => {
   	const savedData = await readFileJson(); // Check for saved data already, we do not want to override
 
   	// Need to correctly update json with override other areas
-  	if (savedData !== null) {
+    if (savedData !== null) {
       let currentData = savedData;
       let incomingData = jsonData;
       for (let i = 0; i < pathKeys.length; i++) {
@@ -26,10 +26,10 @@ const writeFileJsonWithPathKeys = async (jsonData, pathKeys) => {
             Reflect.set(currentData, key, incomingData[key]);
             break;
           }
-        	else {
+          else {
             currentData = currentData[key];
             incomingData = incomingData[key];
-        	}
+          }
         }
         else {
           Reflect.set(currentData, key, incomingData[key]);
