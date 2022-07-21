@@ -1,4 +1,5 @@
-const { writeFileJson } = require('../utils/file.utils');
+const { writeFileJsonWithPathKeys } = require('../utils/file.utils');
+const { ERROR_MESSAGES } = require('./error_constants.command');
 
 const COMMAND_NAME = 'add';
 const ARGUMENT_TYPE = '<string>';
@@ -6,6 +7,14 @@ const ARGUMENT_DESCRIPTION = 'A string that maps the nested path of keys using "
 
 const action = async (input, options) => {
 	const { value, list: listFlag } = options;
+
+	// Input from value flag is invalid
+	if (value === '' || value.trim() === '') {
+		console.log(ERROR_MESSAGES.INVALID_VALUE);
+		return;
+	}
+
+
   let rawKeys = input.split('|');
 
 	// Remove keys that are just whitespace (i.e. '||')
@@ -29,7 +38,7 @@ const action = async (input, options) => {
 	}, {});
 
 	
-	await writeFileJson(keyMapping, filteredKeys);
+	await writeFileJsonWithPathKeys(keyMapping, filteredKeys);
 }
 
 const requiredOptions = [

@@ -1,10 +1,9 @@
 const { readFileJson } = require('../utils/file.utils');
+const { ERROR_MESSAGES } = require('./error_constants.command');
 
 const COMMAND_NAME = 'read';
 const ARGUMENT_TYPE = '<string>';
 const ARGUMENT_DESCRIPTION = 'A string that maps the nested path of keys using "|" as the delimiter. For Example, "parent|child1|child2" creates { parent: { child1: { child2: <value> } } }';
-
-const ERROR_UNKNOWN_PATH = 'Unable to find value for given path';
 
 const action = async (input, _options) => {
   let rawKeys = input.split('|');
@@ -22,7 +21,7 @@ const action = async (input, _options) => {
 
 	// There is no currently saved data
 	if (savedData === null) {
-		console.log(ERROR_UNKNOWN_PATH);
+		console.log(ERROR_MESSAGES.UNKNOWN_PATH);
 		return;
 	}
 
@@ -42,7 +41,7 @@ const printResult = (result) => {
 		console.log('List of child keys from path', Object.keys(result));
 	}
 	else {
-		console.log(ERROR_UNKNOWN_PATH);
+		console.log(ERROR_MESSAGES.UNKNOWN_PATH);
 	}
 }
 
