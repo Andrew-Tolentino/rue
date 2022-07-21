@@ -75,8 +75,8 @@ const deletePath = (currentRef, keyPathList, currentIndex) => {
 module.exports = {
   commandName: COMMAND_NAME,
   argument: {
-  	type: ARGUMENT_TYPE,
-  	description: ARGUMENT_DESCRIPTION
+    type: ARGUMENT_TYPE,
+    description: ARGUMENT_DESCRIPTION
   },
   action,
   requiredOptions: [],
