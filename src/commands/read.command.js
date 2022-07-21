@@ -13,7 +13,7 @@ const action = async (input, _options) => {
 
   // Remove any whitespace for each key
   filteredKeys = filteredKeys.map((key) => {
-  	return key.trim();
+    return key.trim();
   });
 
   // Grab currently saved data
@@ -21,13 +21,13 @@ const action = async (input, _options) => {
   
   // There is no currently saved data
   if (savedData === null) {
-  	console.log(ERROR_MESSAGES.UNKNOWN_PATH);
-  	return;
+    console.log(ERROR_MESSAGES.UNKNOWN_PATH);
+    return;
   }
 
   const result = filteredKeys.reduce((map, key) => {
-  	const childData = map[key];
-  	return childData;
+    const childData = map[key];
+    return childData;
   }, savedData);
 
   printResult(result);
@@ -35,13 +35,13 @@ const action = async (input, _options) => {
 
 const printResult = (result) => {
   if (Array.isArray(result) || typeof result === 'string') {
-  	console.log(result);
+    console.log(result);
   }
   else if (typeof result === 'object') {
-  	console.log('List of child keys from path', Object.keys(result));
+    console.log('List of child keys from path', Object.keys(result));
   }
   else {
-  	console.log(ERROR_MESSAGES.UNKNOWN_PATH);
+    console.log(ERROR_MESSAGES.UNKNOWN_PATH);
   }
 }
 
