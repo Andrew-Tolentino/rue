@@ -1,6 +1,9 @@
 const fsPromises = require('fs').promises;
+const { dirname } = require('path');
 
 const FILE_NAME = 'rue_json.json';
+const appDir = dirname(require.main.filename);
+const jsonFilePath = `${appDir}/${FILE_NAME}`
 
 /**
  * Method use to write into the rue json file containing saved data.
@@ -39,7 +42,7 @@ const writeFileJsonWithPathKeys = async (jsonData, pathKeys) => {
     }
     
     const updatedData = savedData !== null ? savedData : jsonData;
-    await fsPromises.writeFile(FILE_NAME, JSON.stringify(updatedData, null, 2));
+    await fsPromises.writeFile(jsonFilePath, JSON.stringify(updatedData, null, 2));
   }
   catch(err) {
     console.log(`Unable to write to Rue file with specified path - ${pathKeys}`, err);
@@ -54,7 +57,7 @@ const writeFileJsonWithPathKeys = async (jsonData, pathKeys) => {
  */
 const writeFileJson = async (jsonData) => {
   try {
-    await fsPromises.writeFile(FILE_NAME, JSON.stringify(jsonData, null, 2));
+    await fsPromises.writeFile(jsonFilePath, JSON.stringify(jsonData, null, 2));
   }
   catch(err) {
     console.log('Unable to write to Rue file', err);
@@ -68,7 +71,7 @@ const writeFileJson = async (jsonData) => {
  */
 const readFileJson = async () => {
   try {
-    const rawData = await fsPromises.readFile(FILE_NAME);
+    const rawData = await fsPromises.readFile(jsonFilePath);
     return JSON.parse(rawData);
   }
   catch(err) {
