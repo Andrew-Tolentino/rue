@@ -26,13 +26,13 @@ const action = async (input, options) => {
 
   // Reverse order of keys so that we can build the mapping starting with last key
   const keyMapping = [...filteredKeys].reverse().reduce((map, key, index) => {
-  	if (index === 0) {
-  		// If list flag is enabled, set value to be an array delimited by ','
-  		map[key] = listFlag ? value.split(',') : value;
-  	}
-  	else
-  		map = { [key]: map };
-  	return map;
+    if (index === 0) {
+    	// If list flag is enabled, set value to be an array delimited by ','
+    	map[key] = listFlag ? value.split(',') : value;
+    }
+    else
+    	map = { [key]: map };
+    return map;
   }, {});
 
   await writeFileJsonWithPathKeys(keyMapping, filteredKeys);
@@ -40,15 +40,15 @@ const action = async (input, options) => {
 
 const requiredOptions = [
   {
-  	optionStr: '-v, --value <string>',
-  	optionDesc: '(Required) Value to assign to the last key path (<last_key>: <value>)'
+    optionStr: '-v, --value <string>',
+    optionDesc: '(Required) Value to assign to the last key path (<last_key>: <value>)'
   }
 ];
 
 const options = [
   {
-  	optionStr: '-l, --list',
-  	optionDesc: 'Converts the -v/--value option arg into a list using "," as a delimiter'
+    optionStr: '-l, --list',
+    optionDesc: 'Converts the -v/--value option arg into a list using "," as a delimiter'
   }
 ];
 
