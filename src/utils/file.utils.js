@@ -15,34 +15,33 @@ const writeFileJsonWithPathKeys = async (jsonData, pathKeys) => {
 
   	// Need to correctly update json with override other areas
   	if (savedData !== null) {
-  		let currentData = savedData;
-  		let incomingData = jsonData;
-
-  		for (let i = 0; i < pathKeys.length; i++) {
-  			const key = pathKeys[i];
-  			if (currentData[key] !== undefined) {
-
-  				// Check if subMap maps to a value rather than another object
-  				if (Array.isArray(currentData[key]) || typeof currentData[key] !== 'object') {
-  					Reflect.set(currentData, key, incomingData[key]);
-  					break;
-  				}
-  				else {
-  					currentData = currentData[key];
-  					incomingData = incomingData[key];
-  				}
-  			}
-  			else {
-  				Reflect.set(currentData, key, incomingData[key]);
-  				break;
-  			}
-  		}
-  	}
-  	const updatedData = savedData !== null ? savedData : jsonData;
-  	await fsPromises.writeFile(FILE_NAME, JSON.stringify(updatedData, null, 2));
+      let currentData = savedData;
+      let incomingData = jsonData;
+      for (let i = 0; i < pathKeys.length; i++) {
+        const key = pathKeys[i];
+        if (currentData[key] !== undefined) {
+          // Check if subMap maps to a value rather than another object
+          
+          if (Array.isArray(currentData[key]) || typeof currentData[key] !== 'object') {
+            Reflect.set(currentData, key, incomingData[key]);
+            break;
+          }
+        	else {
+            currentData = currentData[key];
+            incomingData = incomingData[key];
+        	}
+        }
+        else {
+          Reflect.set(currentData, key, incomingData[key]);
+          break;
+        }
+      }
+    }
+    const updatedData = savedData !== null ? savedData : jsonData;
+    await fsPromises.writeFile(FILE_NAME, JSON.stringify(updatedData, null, 2));
   }
   catch(err) {
-  	console.log(`Unable to write to Rue file with specified path - ${pathKeys}`, err);
+    console.log(`Unable to write to Rue file with specified path - ${pathKeys}`, err);
   }
 }
 
@@ -54,10 +53,10 @@ const writeFileJsonWithPathKeys = async (jsonData, pathKeys) => {
  */
 const writeFileJson = async (jsonData) => {
   try {
-  	await fsPromises.writeFile(FILE_NAME, JSON.stringify(jsonData, null, 2));
+    await fsPromises.writeFile(FILE_NAME, JSON.stringify(jsonData, null, 2));
   }
   catch(err) {
-  	console.log('Unable to write to Rue file', err);
+    console.log('Unable to write to Rue file', err);
   }
 }
 
@@ -68,12 +67,12 @@ const writeFileJson = async (jsonData) => {
  */
 const readFileJson = async () => {
   try {
-  	const rawData = await fsPromises.readFile(FILE_NAME);
-  	return JSON.parse(rawData);
+    const rawData = await fsPromises.readFile(FILE_NAME);
+    return JSON.parse(rawData);
   }
   catch(err) {
-  	console.log('Unable to read Rue file', err);
-  	return null;
+    console.log('Unable to read Rue file', err);
+    return null;
   }
 }
 
